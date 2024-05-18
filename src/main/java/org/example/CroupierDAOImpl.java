@@ -28,11 +28,25 @@ public class CroupierDAOImpl implements CroupierDAO {
     }
 
     @Override
-    public void setTotalMoney(int totalMoney) {
+    public void updateTotalMoney(int totalMoney) {
         try (Connection connection = Database.getConnection()) {
 
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE CROUPIER SET TOTAL_MONEY = ?");
+            preparedStatement.setInt(1, totalMoney);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+        }
+    }
+
+    @Override
+    public void setTotalMoney(int totalMoney) {
+        try (Connection connection = Database.getConnection()) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "INSERT INTO CROUPIER(TOTAL_MONEY) VALUES (?)");
             preparedStatement.setInt(1, totalMoney);
             preparedStatement.executeUpdate();
 

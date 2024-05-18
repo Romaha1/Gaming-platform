@@ -34,7 +34,7 @@ public class Menu {
             System.out.println("1. Вибрати іншого гравця");
             System.out.println("2. Додати гравця");
             System.out.println("3. Зіграти за обраного гравця");
-            System.out.println("0. Вийти");
+            System.out.println("4. Вийти");
 
             String action = scanner.next();
 
@@ -48,7 +48,7 @@ public class Menu {
                 case "3":
                     makeBet();
                     break;
-                case "0":
+                case "4":
                     flag = false;
                     break;
                 default:
@@ -62,7 +62,7 @@ public class Menu {
         List<Player> listOfPlayers = playerDAO.getPlayers();
 
         if (listOfPlayers.isEmpty()) {
-            System.out.println("Список гравців пустий, добавте нового\n");
+            System.out.println("Список гравців пустий, додайте нового\n");
         }
 
         for (Player player : listOfPlayers) {
@@ -74,7 +74,7 @@ public class Menu {
         try {
             currentPlayer = listOfPlayers.get(selectedPlayer - 1);
         } catch (Exception ignored) {
-            System.out.println("Помилка, вибраного гравця нема\n");
+            System.out.println("Помилка, вибраного гравця не існує\n");
         }
     }
 
@@ -116,7 +116,7 @@ public class Menu {
             System.out.println("Баланс казино: " + croupier.getTotalMoney() + " $.");
             System.out.println(currentPlayer.getPlayerName() + " має " + currentPlayer.getPlayerMoney() + " $.\n");
 
-            croupierDAO.setTotalMoney(croupier.getTotalMoney());
+            croupierDAO.updateTotalMoney(croupier.getTotalMoney());
             playerDAO.update(currentPlayer);
     }
 
